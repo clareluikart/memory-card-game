@@ -1,6 +1,15 @@
 /*
  * Create a list that holds all of your cards
  */
+const originalDeck = document.getElementsByClassName('deck');
+console.log(originalDeck);
+const cards = originalDeck[0].getElementsByTagName('li');
+console.log(cards);
+let shufflearray = [];
+for(let i = 0; i < cards.length; i++){
+  shufflearray.push(cards.item(i));
+}
+console.log(shuffle(shufflearray));
 
 
 /*
