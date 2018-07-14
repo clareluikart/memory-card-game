@@ -10,8 +10,14 @@ for(let i = 0; i < cards.length; i++){
   shufflearray.push(cards.item(i));
 }
 console.log(shuffle(shufflearray));
-
-
+const cardList = document.createElement('ul');
+cardList.className = 'deck';
+for(let i = 0; i < shufflearray.length; i++){
+  cardList.appendChild(shufflearray[i]);
+}
+console.log(cardList);
+originalDeck[0].remove();
+document.body.appendChild(cardList);
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
