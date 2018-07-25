@@ -1,6 +1,10 @@
 /*
  * Create a list that holds all of your cards
  */
+function flipCard(event){
+  event.target.classList.add("show");
+}
+
 const originalDeck = document.getElementsByClassName('deck');
 console.log(originalDeck);
 const cards = originalDeck[0].getElementsByTagName('li');
@@ -18,6 +22,8 @@ for(let i = 0; i < shufflearray.length; i++){
 console.log(cardList);
 originalDeck[0].remove();
 document.body.appendChild(cardList);
+cardList.addEventListener('click', flipCard);
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
