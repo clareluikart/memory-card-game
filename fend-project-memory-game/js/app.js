@@ -1,8 +1,28 @@
+let inturn = false;
+let tempCard;
 /*
  * Create a list that holds all of your cards
  */
-function flipCard(event){
+function flipCard(event) {
   event.target.classList.add("show");
+  if (event.target != tempCard) {
+    if (!inturn) {
+      inturn = true;
+      tempCard = event.target;
+    } else {
+      if ((tempCard.getElementsByTagName('i'))[0].classList.contains((event.target.getElementsByTagName('i'))[0].classList[1])) {
+        tempCard.classList.remove("show");
+        event.target.classList.remove("show");
+        tempCard.classList.add("match");
+        event.target.classList.add("match");
+      } else {
+        tempCard.classList.remove("show");
+        event.target.classList.remove("show");
+      }
+      inturn = false;
+      tempCard = null;
+    }
+  }
 }
 
 const originalDeck = document.getElementsByClassName('deck');
@@ -10,19 +30,23 @@ console.log(originalDeck);
 const cards = originalDeck[0].getElementsByTagName('li');
 console.log(cards);
 let shufflearray = [];
-for(let i = 0; i < cards.length; i++){
+for (let i = 0; i < cards.length; i++) {
   shufflearray.push(cards.item(i));
 }
 console.log(shuffle(shufflearray));
 const cardList = document.createElement('ul');
 cardList.className = 'deck';
-for(let i = 0; i < shufflearray.length; i++){
+for (let i = 0; i < shufflearray.length; i++) {
   cardList.appendChild(shufflearray[i]);
 }
 console.log(cardList);
 originalDeck[0].remove();
 document.body.appendChild(cardList);
+
 cardList.addEventListener('click', flipCard);
+
+
+
 
 /*
  * Display the cards on the page
@@ -33,17 +57,18 @@ cardList.addEventListener('click', flipCard);
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
 
