@@ -1,5 +1,19 @@
 let inturn = false;
 let tempCard;
+let moves = 0;
+const movesSpan = document.querySelector('.moves');
+const movesPlural = document.querySelector('.s')
+movesSpan.textContent = moves;
+
+function addMove() {
+  moves++;
+  movesSpan.textContent = moves;
+  if (moves === 1) {
+    movesPlural.textContent = "Move";
+  } else {
+    movesPlural.textContent = "Moves";
+  }
+}
 /*
  * Create a list that holds all of your cards
  */
@@ -15,9 +29,11 @@ function flipCard(event) {
         event.target.classList.remove("show");
         tempCard.classList.add("match");
         event.target.classList.add("match");
+        addMove();
       } else {
         tempCard.classList.remove("show");
         event.target.classList.remove("show");
+        addMove();
       }
       inturn = false;
       tempCard = null;
