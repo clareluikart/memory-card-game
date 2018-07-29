@@ -46,6 +46,19 @@ function flipCard(event) {
         tempCard.classList.add("match");
         event.target.classList.add("match");
         addMove();
+        if (moves === 24) {
+          const one = document.querySelector('.one');
+          one.classList.remove('fa-star');
+          one.classList.add('fa-star-o');
+        } else if (moves === 32) {
+          const two = document.querySelector('.two');
+          two.classList.remove('fa-star');
+          two.classList.add('fa-star-o');
+        } else if (moves === 40) {
+          const three = document.querySelector('.three');
+          three.classList.remove('fa-star');
+          three.classList.add('fa-star-o');
+        }
         matches++;
         console.log(matches);
         if (matches === 8) {
@@ -55,6 +68,19 @@ function flipCard(event) {
         tempCard.classList.remove("show");
         event.target.classList.remove("show");
         addMove();
+        if (moves === 24) {
+          const one = document.querySelector('.one');
+          one.classList.remove('fa-star');
+          one.classList.add('fa-star-o');
+        } else if (moves === 32) {
+          const two = document.querySelector('.two');
+          two.classList.remove('fa-star');
+          two.classList.add('fa-star-o');
+        } else if (moves === 40) {
+          const three = document.querySelector('.three');
+          three.classList.remove('fa-star');
+          three.classList.add('fa-star-o');
+        }
       }
       inturn = false;
       tempCard = null;
