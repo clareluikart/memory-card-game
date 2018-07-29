@@ -2,9 +2,18 @@ let inturn = false;
 let tempCard;
 let moves = 0;
 let matches = 0;
+let time = -1;
+let timeStopper;
 const movesSpan = document.querySelector('.moves');
 const movesPlural = document.querySelector('.s')
 movesSpan.textContent = moves;
+
+function startTimer() {
+  timeStopper = setInterval(function() {
+    time++;
+    document.querySelector('.timer').textContent = time;
+  }, 1000);
+}
 
 function addMove() {
   moves++;
@@ -19,7 +28,12 @@ function addMove() {
  * Create a list that holds all of your cards
  */
 function flipCard(event) {
+  if (time === -1) {
+    time++;
+    startTimer();
+  }
   console.log(event.target);
+  console.log(matches);
   if (event.target != tempCard && event.target.tagName == 'LI') {
     event.target.classList.add("show");
     if (!inturn) {
@@ -33,8 +47,9 @@ function flipCard(event) {
         event.target.classList.add("match");
         addMove();
         matches++;
-        if (matches = 8) {
-          console.log("you win!");
+        console.log(matches);
+        if (matches === 8) {
+          clearInterval(timeStopper);
         }
       } else {
         tempCard.classList.remove("show");
