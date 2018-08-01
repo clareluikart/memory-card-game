@@ -1,21 +1,32 @@
+// variable that keeps track of whether the game is in play
 let inturn = false;
+// keeps track of the first card while choosing a second card
 let tempCard;
+// keeping track of moves
 let moves = 0;
+// keeps track of matches for the stars
 let matches = 0;
+// keeps track of time. starts at -1 at the beginning
 let time = -1;
+// setInterval variable so that timer can be stopped
 let timeStopper;
+// number of stars left
 let stars = 3;
+// selecting moves in the html
 const movesSpan = document.querySelector('.moves');
 const movesPlural = document.querySelector('.s')
 movesSpan.textContent = moves;
 
+//timer: called after first turn
 function startTimer() {
   timeStopper = setInterval(function() {
+    // times in seconds: increases time by 1 every second
     time++;
     document.querySelector('.timer').textContent = time;
   }, 1000);
 }
 
+// adds move and updates the move counter for singular and plural
 function addMove() {
   moves++;
   movesSpan.textContent = moves;
@@ -26,25 +37,31 @@ function addMove() {
   }
 }
 
+// function processed when any card is clicked
 function flipCard(event) {
+  //checking if timer has started. if not, start timer.
   if (time === -1) {
     time++;
     startTimer();
   }
-  console.log(event.target);
-  console.log(matches);
+  // checking that the card hasn't already been clicked and that it isn't the background
   if (event.target != tempCard && event.target.tagName == 'LI') {
-    event.target.classList.add("show");
+    // "flipping" over the card and making it show
+    event.target.classList.add("open", "show");
+    // checking if this is the first click or the second
     if (!inturn) {
       inturn = true;
       tempCard = event.target;
     } else {
+      //seeing if the cards match
       if ((tempCard.getElementsByTagName('i'))[0].classList.contains((event.target.getElementsByTagName('i'))[0].classList[1])) {
-        tempCard.classList.remove("show");
-        event.target.classList.remove("show");
+        //if they do, change their class to match
+        tempCard.classList.remove("open", "show");
+        event.target.classList.remove("open", "show");
         tempCard.classList.add("match");
         event.target.classList.add("match");
         addMove();
+        //after adding move, check if the stars need to be changed
         if (moves === 24) {
           const one = document.querySelector('.one');
           one.classList.remove('fa-star');
@@ -61,9 +78,10 @@ function flipCard(event) {
           three.classList.add('fa-star-o');
           stars--;
         }
+        //add a match so we can see if the game is done.
         matches++;
-        console.log(matches);
         if (matches === 8) {
+          //if  it is, end the time, and make the modal
           clearInterval(timeStopper);
           modal.style.display = "block";
           document.querySelector('.winSeconds').textContent = time;
@@ -73,8 +91,10 @@ function flipCard(event) {
           }
         }
       } else {
-        tempCard.classList.remove("show");
-        event.target.classList.remove("show");
+        //else if they don't match turn them back to default class
+        tempCard.classList.remove("open", "show");
+        event.target.classList.remove("open", "show");
+        //add move and check if the stars need to be changed
         addMove();
         if (moves === 24) {
           const one = document.querySelector('.one');
@@ -90,30 +110,35 @@ function flipCard(event) {
           three.classList.add('fa-star-o');
         }
       }
+      //at the end of a turn, end the turn by making inturn false and resetting tempcard
       inturn = false;
       tempCard = null;
     }
   }
-}
+} //end flipCard
 
+// shuffling the deck by first taking the deck we are given
 const originalDeck = document.getElementsByClassName('deck');
-console.log(originalDeck);
+// getting the cards into a HTMLCollection
 const cards = originalDeck[0].getElementsByTagName('li');
-console.log(cards);
+// make an array to shuffle
 let shufflearray = [];
+// add each card from the HTMLCollection into the array and shuffle
 for (let i = 0; i < cards.length; i++) {
   shufflearray.push(cards.item(i));
 }
-console.log(shuffle(shufflearray));
+shuffle(shufflearray);
+// make a list to add the cards back to and styling it as a deck
 const cardList = document.createElement('ul');
 cardList.className = 'deck';
 for (let i = 0; i < shufflearray.length; i++) {
   cardList.appendChild(shufflearray[i]);
 }
-console.log(cardList);
+// removing the original deck and adding the new one
 originalDeck[0].remove();
 document.body.appendChild(cardList);
 
+// starting to listen for a click
 cardList.addEventListener('click', flipCard);
 
 // Get the modal
