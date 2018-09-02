@@ -1,5 +1,7 @@
 // variable that keeps track of whether the game is in play
 let inturn = false;
+// keeps track of if an animation is running
+let animating = false;
 // keeps track of the first card while choosing a second card
 let tempCard;
 // keeping track of moves
@@ -91,9 +93,60 @@ function flipCard(event) {
           }
         }
       } else {
-        //else if they don't match turn them back to default class
-        tempCard.classList.remove("open", "show");
-        event.target.classList.remove("open", "show");
+        //else if they don't match turn them back to default class after animating
+        var height = 124;
+
+        var id1 = setInterval(firstFlipping, 10);
+        animating = true;
+        let down = true;
+
+        var animationTemp = tempCard;
+
+        function firstFlipping() {
+          if (height > 0 && down === true) {
+            height--;
+            event.target.style.height = height + 'px';
+            animationTemp.style.height = height + 'px';
+          } else if (height === 124) {
+            animationTemp.style.height = '125px';
+            event.target.style.height = '125px';
+            event.target.classList.remove("open", "show");
+            animationTemp.classList.remove("open", "show");
+            clearInterval(id1);
+            animating = false;
+          } else {
+            down = false;
+            height = height + 2;
+            animationTemp.style.height = height + 'px';
+            event.target.style.height = height + 'px';
+          }
+        }
+
+        /*var id2 = setInterval(secondFlipping, 5)
+
+        function secondFlipping() {
+          if (height === 125) {
+            clearInterval(id2);
+          } else {
+            height++;
+            event.target.style.height = height + 'px';
+          }
+        }
+        event.target.classList.add('open', 'show');
+        */
+        /*var wait = 100;
+        var id = setInterval(waiter, 5);
+
+        function waiter() {
+          if (wait === 0) {
+            clearInterval(id);
+          } else {
+            wait--;
+            tempCard.classList.add("open", "show");
+          }
+        }*/
+        //tempCard.classList.remove("open", "show");
+        //event.target.classList.remove("open", "show");
         //add move and check if the stars need to be changed
         addMove();
         if (moves === 24) {
@@ -136,7 +189,7 @@ for (let i = 0; i < shufflearray.length; i++) {
 }
 // removing the original deck and adding the new one
 originalDeck[0].remove();
-document.body.appendChild(cardList);
+document.getElementsByClassName('container')[0].appendChild(cardList);
 
 // starting to listen for a click
 cardList.addEventListener('click', flipCard);
