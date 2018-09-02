@@ -46,126 +46,131 @@ function flipCard(event) {
     time++;
     startTimer();
   }
-  // checking that the card hasn't already been clicked and that it isn't the background
-  if (event.target != tempCard && event.target.tagName == 'LI') {
-    // "flipping" over the card and making it show
-    event.target.classList.add("open", "show");
-    // checking if this is the first click or the second
-    if (!inturn) {
-      inturn = true;
-      tempCard = event.target;
-    } else {
-      //seeing if the cards match
-      if ((tempCard.getElementsByTagName('i'))[0].classList.contains((event.target.getElementsByTagName('i'))[0].classList[1])) {
-        //if they do, change their class to match
-        tempCard.classList.remove("open", "show");
-        event.target.classList.remove("open", "show");
-        tempCard.classList.add("match");
-        event.target.classList.add("match");
-        addMove();
-        //after adding move, check if the stars need to be changed
-        if (moves === 24) {
-          const one = document.querySelector('.one');
-          one.classList.remove('fa-star');
-          one.classList.add('fa-star-o');
-          stars--;
-        } else if (moves === 32) {
-          const two = document.querySelector('.two');
-          two.classList.remove('fa-star');
-          two.classList.add('fa-star-o');
-          stars--;
-        } else if (moves === 40) {
-          const three = document.querySelector('.three');
-          three.classList.remove('fa-star');
-          three.classList.add('fa-star-o');
-          stars--;
-        }
-        //add a match so we can see if the game is done.
-        matches++;
-        if (matches === 8) {
-          //if  it is, end the time, and make the modal
-          clearInterval(timeStopper);
-          modal.style.display = "block";
-          document.querySelector('.winSeconds').textContent = time;
-          document.querySelector('.winStars').textContent = stars;
-          if (stars === 1) {
-            document.querySelector('.stars-s').textContent = "";
-          }
-        }
+  // checking that an animation is not in progress
+  if (animating === false) {
+    // checking that the card hasn't already been clicked and that it isn't the background
+    if (event.target != tempCard && event.target.tagName == 'LI') {
+      // "flipping" over the card and making it show
+      event.target.classList.add("open", "show");
+      // checking if this is the first click or the second
+      if (!inturn) {
+        inturn = true;
+        tempCard = event.target;
       } else {
-        //else if they don't match turn them back to default class after animating
-        var height = 124;
+        //seeing if the cards match
+        if ((tempCard.getElementsByTagName('i'))[0].classList.contains((event.target.getElementsByTagName('i'))[0].classList[1])) {
+          //if they do, change their class to match
+          tempCard.classList.remove("open", "show");
+          event.target.classList.remove("open", "show");
+          tempCard.classList.add("match");
+          event.target.classList.add("match");
+          addMove();
+          //after adding move, check if the stars need to be changed
+          if (moves === 24) {
+            const one = document.querySelector('.one');
+            one.classList.remove('fa-star');
+            one.classList.add('fa-star-o');
+            stars--;
+          } else if (moves === 32) {
+            const two = document.querySelector('.two');
+            two.classList.remove('fa-star');
+            two.classList.add('fa-star-o');
+            stars--;
+          } else if (moves === 40) {
+            const three = document.querySelector('.three');
+            three.classList.remove('fa-star');
+            three.classList.add('fa-star-o');
+            stars--;
+          }
+          //add a match so we can see if the game is done.
+          matches++;
+          if (matches === 8) {
+            //if  it is, end the time, and make the modal
+            clearInterval(timeStopper);
+            modal.style.display = "block";
+            document.querySelector('.winSeconds').textContent = time;
+            document.querySelector('.winStars').textContent = stars;
+            if (stars === 1) {
+              document.querySelector('.stars-s').textContent = "";
+            }
+          }
+        } else {
+          //else if they don't match turn them back to default class after animating
+          var height = 124;
 
-        var id1 = setInterval(firstFlipping, 10);
-        animating = true;
-        let down = true;
+          var id1 = setInterval(firstFlipping, 10);
 
-        var animationTemp = tempCard;
+          animating = true;
 
-        function firstFlipping() {
-          if (height > 0 && down === true) {
-            height--;
-            event.target.style.height = height + 'px';
-            animationTemp.style.height = height + 'px';
-          } else if (height === 124) {
-            animationTemp.style.height = '125px';
-            event.target.style.height = '125px';
-            event.target.classList.remove("open", "show");
-            animationTemp.classList.remove("open", "show");
-            clearInterval(id1);
-            animating = false;
-          } else {
-            down = false;
-            height = height + 2;
-            animationTemp.style.height = height + 'px';
-            event.target.style.height = height + 'px';
+          let down = true;
+
+          var animationTemp = tempCard;
+
+          function firstFlipping() {
+            if (height > 0 && down === true) {
+              height--;
+              event.target.style.height = height + 'px';
+              animationTemp.style.height = height + 'px';
+            } else if (height === 124) {
+              animationTemp.style.height = '125px';
+              event.target.style.height = '125px';
+              event.target.classList.remove("open", "show");
+              animationTemp.classList.remove("open", "show");
+              clearInterval(id1);
+              animating = false;
+            } else {
+              down = false;
+              height = height + 2;
+              animationTemp.style.height = height + 'px';
+              event.target.style.height = height + 'px';
+            }
+          }
+
+          /*var id2 = setInterval(secondFlipping, 5)
+
+          function secondFlipping() {
+            if (height === 125) {
+              clearInterval(id2);
+            } else {
+              height++;
+              event.target.style.height = height + 'px';
+            }
+          }
+          event.target.classList.add('open', 'show');
+          */
+          /*var wait = 100;
+          var id = setInterval(waiter, 5);
+
+          function waiter() {
+            if (wait === 0) {
+              clearInterval(id);
+            } else {
+              wait--;
+              tempCard.classList.add("open", "show");
+            }
+          }*/
+          //tempCard.classList.remove("open", "show");
+          //event.target.classList.remove("open", "show");
+          //add move and check if the stars need to be changed
+          addMove();
+          if (moves === 24) {
+            const one = document.querySelector('.one');
+            one.classList.remove('fa-star');
+            one.classList.add('fa-star-o');
+          } else if (moves === 32) {
+            const two = document.querySelector('.two');
+            two.classList.remove('fa-star');
+            two.classList.add('fa-star-o');
+          } else if (moves === 40) {
+            const three = document.querySelector('.three');
+            three.classList.remove('fa-star');
+            three.classList.add('fa-star-o');
           }
         }
-
-        /*var id2 = setInterval(secondFlipping, 5)
-
-        function secondFlipping() {
-          if (height === 125) {
-            clearInterval(id2);
-          } else {
-            height++;
-            event.target.style.height = height + 'px';
-          }
-        }
-        event.target.classList.add('open', 'show');
-        */
-        /*var wait = 100;
-        var id = setInterval(waiter, 5);
-
-        function waiter() {
-          if (wait === 0) {
-            clearInterval(id);
-          } else {
-            wait--;
-            tempCard.classList.add("open", "show");
-          }
-        }*/
-        //tempCard.classList.remove("open", "show");
-        //event.target.classList.remove("open", "show");
-        //add move and check if the stars need to be changed
-        addMove();
-        if (moves === 24) {
-          const one = document.querySelector('.one');
-          one.classList.remove('fa-star');
-          one.classList.add('fa-star-o');
-        } else if (moves === 32) {
-          const two = document.querySelector('.two');
-          two.classList.remove('fa-star');
-          two.classList.add('fa-star-o');
-        } else if (moves === 40) {
-          const three = document.querySelector('.three');
-          three.classList.remove('fa-star');
-          three.classList.add('fa-star-o');
-        }
+        //at the end of a turn, end the turn by making inturn false and resetting tempcard
+        inturn = false;
+        tempCard = null;
       }
-      //at the end of a turn, end the turn by making inturn false and resetting tempcard
-      inturn = false;
-      tempCard = null;
     }
   }
 } //end flipCard
