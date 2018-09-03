@@ -11,7 +11,14 @@
 </head>
 
 <body>
-
+  <div id="winModal" class="modal">
+    <!-- Modal content (starter modal html and css from w3 schools) -->
+    <a href="index.html">
+      <div class="innerModal">
+        <p>You won in <span class="winSeconds"></span> seconds with <span class="winStars"></span> star<span class=stars-s>s</span>! Click anywhere to play again!</p>
+      </div>
+    </a>
+  </div>
   <div class="container">
     <header>
       <h1>Matching Game</h1>
@@ -83,15 +90,7 @@
       </li>
     </ul>
   </div>
-  <div id="winModal" class="modal">
 
-    <!-- Modal content (starter modal html and css from w3 schools) -->
-    <a href="index.html">
-      <div class="modal-content">
-        <p>You won in <span class="winSeconds"></span> seconds with <span class="winStars"></span> star<span class=stars-s>s</span>! Click anywhere to play again!</p>
-      </div>
-    </a>
-  </div>
 
   <script src="js/app.js"></script>
 </body>

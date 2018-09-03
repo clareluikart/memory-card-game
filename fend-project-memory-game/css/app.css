@@ -106,36 +106,26 @@ h1 {
   cursor: pointer;
 }
 
-/* The Modal (background) : starter modal from w3 schools*/
-
 .modal {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%;
-  /* Full width */
-  height: 100%;
-  /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
   background-color: rgba(170, 255, 183, 0.4);
-  /* green w/ opacity */
+  height: 100%;
+  width: 100%;
+  z-index: 1;
 }
 
-/* Modal Content/Box */
-
-.modal-content {
+.innerModal {
   border-radius: 15px;
   color: black;
   background-color: white;
-  margin: 15% auto;
-  padding: 20px;
-  width: 35%;
+  position: relative;
+  text-align: center;
+  margin-top: 25%;
+  margin-bottom: 45%;
+  margin-left: 32%;
+  margin-right: 32%;
+  width: 36%;
 }
 
 a {
