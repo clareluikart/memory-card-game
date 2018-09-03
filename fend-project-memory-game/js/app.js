@@ -16,7 +16,7 @@ let timeStopper;
 let stars = 3;
 // selecting moves in the html
 const movesSpan = document.querySelector('.moves');
-const movesPlural = document.querySelector('.s')
+const movesPlural = document.querySelector('.s');
 movesSpan.textContent = moves;
 
 //timer: called after first turn
@@ -87,12 +87,13 @@ function flipCard(event) {
           if (matches === 8) {
             //if  it is, end the time, and make the modal
             clearInterval(timeStopper);
-            modal.style.display = "block";
             document.querySelector('.winSeconds').textContent = time;
             document.querySelector('.winStars').textContent = stars;
             if (stars === 1) {
               document.querySelector('.stars-s').textContent = "";
             }
+            document.querySelector('.modal').style.display = "block";
+            console.log("Here");
           }
         } else {
           //else if they don't match turn them back to default class after animating
@@ -125,32 +126,6 @@ function flipCard(event) {
               event.target.style.height = height + 'px';
             }
           }
-
-          /*var id2 = setInterval(secondFlipping, 5)
-
-          function secondFlipping() {
-            if (height === 125) {
-              clearInterval(id2);
-            } else {
-              height++;
-              event.target.style.height = height + 'px';
-            }
-          }
-          event.target.classList.add('open', 'show');
-          */
-          /*var wait = 100;
-          var id = setInterval(waiter, 5);
-
-          function waiter() {
-            if (wait === 0) {
-              clearInterval(id);
-            } else {
-              wait--;
-              tempCard.classList.add("open", "show");
-            }
-          }*/
-          //tempCard.classList.remove("open", "show");
-          //event.target.classList.remove("open", "show");
           //add move and check if the stars need to be changed
           addMove();
           if (moves === 24) {
@@ -198,24 +173,6 @@ document.getElementsByClassName('container')[0].appendChild(cardList);
 
 // starting to listen for a click
 cardList.addEventListener('click', flipCard);
-
-// Get the modal
-var modal = document.getElementById('winModal');
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
