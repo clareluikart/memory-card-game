@@ -117,8 +117,8 @@ h1 {
 
 .innerModal {
   border-radius: 15px;
-  color: black;
-  background-color: white;
+  color: #000000;
+  background-color: #ffffff;
   position: relative;
   text-align: center;
   margin-top: 25%;

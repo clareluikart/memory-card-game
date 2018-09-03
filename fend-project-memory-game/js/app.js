@@ -33,9 +33,9 @@ function addMove() {
   moves++;
   movesSpan.textContent = moves;
   if (moves === 1) {
-    movesPlural.textContent = "Move";
+    movesPlural.textContent = 'Move';
   } else {
-    movesPlural.textContent = "Moves";
+    movesPlural.textContent = 'Moves';
   }
 }
 
@@ -50,8 +50,8 @@ function flipCard(event) {
   if (animating === false) {
     // checking that the card hasn't already been clicked and that it isn't the background
     if (event.target != tempCard && event.target.tagName == 'LI') {
-      // "flipping" over the card and making it show
-      event.target.classList.add("open", "show");
+      // 'flipping' over the card and making it show
+      event.target.classList.add('open', 'show');
       // checking if this is the first click or the second
       if (!inturn) {
         inturn = true;
@@ -60,10 +60,10 @@ function flipCard(event) {
         //seeing if the cards match
         if ((tempCard.getElementsByTagName('i'))[0].classList.contains((event.target.getElementsByTagName('i'))[0].classList[1])) {
           //if they do, change their class to match
-          tempCard.classList.remove("open", "show");
-          event.target.classList.remove("open", "show");
-          tempCard.classList.add("match");
-          event.target.classList.add("match");
+          tempCard.classList.remove('open', 'show');
+          event.target.classList.remove('open', 'show');
+          tempCard.classList.add('match');
+          event.target.classList.add('match');
           addMove();
           //after adding move, check if the stars need to be changed
           if (moves === 24) {
@@ -90,10 +90,10 @@ function flipCard(event) {
             document.querySelector('.winSeconds').textContent = time;
             document.querySelector('.winStars').textContent = stars;
             if (stars === 1) {
-              document.querySelector('.stars-s').textContent = "";
+              document.querySelector('.stars-s').textContent = '';
             }
-            document.querySelector('.modal').style.display = "block";
-            console.log("Here");
+            document.querySelector('.modal').style.display = 'block';
+            console.log('Here');
           }
         } else {
           //else if they don't match turn them back to default class after animating
@@ -115,8 +115,8 @@ function flipCard(event) {
             } else if (height === 124) {
               animationTemp.style.height = '125px';
               event.target.style.height = '125px';
-              event.target.classList.remove("open", "show");
-              animationTemp.classList.remove("open", "show");
+              event.target.classList.remove('open', 'show');
+              animationTemp.classList.remove('open', 'show');
               clearInterval(id1);
               animating = false;
             } else {
