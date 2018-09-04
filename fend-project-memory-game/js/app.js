@@ -76,11 +76,6 @@ function flipCard(event) {
             two.classList.remove('fa-star');
             two.classList.add('fa-star-o');
             stars--;
-          } else if (moves === 40) {
-            const three = document.querySelector('.three');
-            three.classList.remove('fa-star');
-            three.classList.add('fa-star-o');
-            stars--;
           }
           //add a match so we can see if the game is done.
           matches++;
